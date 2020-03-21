@@ -1,13 +1,15 @@
 %% script to simulate Poisson Process data and run sv-ppGPFA 
 clear all; close all;
 rng(2)
-set_paths
+addpath(genpath('../src'))
 %% make simulated data
 dy = 50; % number of neurons
 ntr = 5; % number of trials
 nRatesToPlot = 5;
 % generate dataset with three latents
 [Y,prs,rates,fs,dx,dy,ntr,trLen,tt] = generate_toy_data(dy,ntr);
+
+% keyboard
 
 noiseSNR = 2;
 noiseSD = mean(abs(prs.C(:)))/noiseSNR;
@@ -78,10 +80,10 @@ for k=1:length(m.kerns)
     kernelNames{k} = func2str(m.kerns{k}.K);
 end
 
-filename = '~/dev/research/gatsby-swc/gatsby/svGPFA/master/ci/data/YNonStacked.mat';
+filename = '~/dev/research/gatsby-swc/gatsby/svGPFA/pythonCode/ci/data/YNonStacked.mat';
 save(filename, 'YNonStacked')
 
-keyboard
+% keyboard
 
 % end debug
 
