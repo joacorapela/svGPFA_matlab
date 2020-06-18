@@ -6,10 +6,12 @@ load(simFilename);
 
 % keyboard
 
-noiseSNR = 2;
-noiseSD = mean(abs(prs.C(:)))/noiseSNR;
-noisyPRS.C = prs.C + randn(size(prs.C))*noiseSD;
-noisyPRS.b = prs.b + randn(size(prs.b))*noiseSD;
+% noiseSNR = 2;
+% noiseSD = mean(abs(prs.C(:)))/noiseSNR;
+% noisyPRS.C = prs.C + randn(size(prs.C))*noiseSD;
+% noisyPRS.b = prs.b + randn(size(prs.b))*noiseSD;
+noisyPRS.C = rand(size(prs.C));
+noisyPRS.b = rand(size(prs.b));
 
 %% set up fitting structure
 nZ(1) = 10; % number of inducing points for each latent
@@ -19,9 +21,12 @@ Nmax = 500;
 dt = max(trLen)/Nmax;
 
 % set up kernels
-kern1 = buildKernel('Periodic',[1.5;1/2.5]);
-kern2 = buildKernel('Periodic',[1.2;1/2.5]);
-kern3 = buildKernel('RBF',1);
+% kern1 = buildKernel('Periodic',[1.5;1/2.5]);
+% kern2 = buildKernel('Periodic',[1.2;1/2.5]);
+% kern3 = buildKernel('RBF',1);
+kern1 = buildKernel('Periodic',[3.5;1/0.5]);
+kern2 = buildKernel('Periodic',[0.2;1/3.5]);
+kern3 = buildKernel('RBF',.5);
 kerns = {kern1, kern2,kern3};
 
 % set up list of inducing point locations
