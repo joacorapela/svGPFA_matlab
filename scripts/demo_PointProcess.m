@@ -11,10 +11,12 @@ nRatesToPlot = 5;
 
 % keyboard
 
-noiseSNR = 2;
-noiseSD = mean(abs(prs.C(:)))/noiseSNR;
-noisyPRS.C = prs.C + randn(size(prs.C))*noiseSD;
-noisyPRS.b = prs.b + randn(size(prs.b))*noiseSD;
+% noiseSNR = .1;
+% noiseSD = mean(abs(prs.C(:)))/noiseSNR;
+% noisyPRS.C = prs.C + randn(size(prs.C))*noiseSD;
+% noisyPRS.b = prs.b + randn(size(prs.b))*noiseSD;
+noisyPRS.C = rand(size(prs.C));
+noisyPRS.b = rand(size(prs.b));
 
 % visualise firing rates
 figure;
@@ -29,9 +31,12 @@ Nmax = 500;
 dt = max(trLen)/Nmax;
 
 % set up kernels
-kern1 = buildKernel('Periodic',[1.5;1/2.5]);
-kern2 = buildKernel('Periodic',[1.2;1/2.5]);
-kern3 = buildKernel('RBF',1);
+% kern1 = buildKernel('Periodic',[1.5;1/2.5]);
+% kern2 = buildKernel('Periodic',[1.2;1/2.5]);
+% kern3 = buildKernel('RBF',1);
+kern1 = buildKernel('Periodic',[3.5;1/0.5]);
+kern2 = buildKernel('Periodic',[0.2;1/3.5]);
+kern3 = buildKernel('RBF',.5);
 kerns = {kern1, kern2,kern3};
 
 % set up list of inducing point locations
@@ -103,7 +108,7 @@ for nn = 1:ntr
     end
 end
 
-filename = '~/dev/research/gatsby-swc/gatsby/svGPFA/code/ipynb/data/demo_PointProcess.mat';
+filename = '~/dev/research/gatsby-swc/gatsby/svGPFA/pythonCode/ci/data/demo_PointProcess.mat';
 save(filename, 'q_mu0', 'q_sqrt0', 'q_diag0', 'C0', 'b0', 'ttQuad', 'wwQuad', 'xxHerm', 'wwHerm', 'Z0', 'YNonStacked', 'Y', 'index', 'hprs0', 'kernelNames', 'testTimes', 'trueLatents');
 
 % keyboard
