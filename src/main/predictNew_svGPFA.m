@@ -41,7 +41,8 @@ pred.multiOutputGP.variance = var_h;
 % muH = mu_h;
 % varH = var_h;
 % 
-% filename = '~/dev/research/gatsby/svGPFA/code/test/data/predictNew_svGPFA.mat'; save(filename, 'q_mu', 'q_sqrt', 'q_diag', 'C', 'b', 'ttQuad', 'wwQuad', 'xxHerm', 'wwHerm', 'Z', 'Y', 'hprs', 'kernelNames', 'testTimes', 'muK', 'varK', 'muH', 'varH');
+% filename = '~/dev/research/gatsby-swc/gatsby/svGPFA/pythonCode/ci/data/predictNew_svGPFA.mat'; 
+% save(filename, 'q_mu', 'q_sqrt', 'q_diag', 'C', 'b', 'ttQuad', 'wwQuad', 'xxHerm', 'wwHerm', 'Z', 'Y', 'hprs', 'kernelNames', 'testTimes', 'muK', 'varK', 'muH', 'varH');
 % 
 % keyboard
 

@@ -10,5 +10,5 @@ end
 % Ktz = KmatsSpike.Ktz;
 % Ktt = KmatsSpike.Ktt;
 % 
-% filename = '~/dev/research/gatsby/svGPFA/code/test/data/predict_MultiOutputGP_fromSpikes.mat';
+% filename = '~/dev/research/gatsby-swc/gatsby/svGPFA/pythonCode/ci/data/predict_MultiOutputGP_fromSpikes.mat';
 % save(filename, 'q_mu', 'q_sigma', 'C', 'b', 'Kzzi', 'Kzz', 'Ktz', 'Ktt', 'index', 'mu_h', 'var_h', 'mu_k', 'var_k', '-v6');

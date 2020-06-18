@@ -16,5 +16,5 @@ var_h = mtimesx(var_k,(C.^2)');
 % Ktz = Kmats.Ktz;
 % Ktt = Kmats.Ktt;
 % 
-% filename = '~/dev/research/gatsby/svGPFA/code/test/data/predict_MultiOutputGP.mat';
+% filename = '~/dev/research/gatsby-swc/gatsby/svGPFA/pythonCode/ci/data/predict_MultiOutputGP.mat';
 % save(filename, 'q_mu', 'q_sigma', 'C', 'b', 'Kzzi', 'Kzz', 'Ktz', 'Ktt', 'mu_h', 'var_h', '-v6');

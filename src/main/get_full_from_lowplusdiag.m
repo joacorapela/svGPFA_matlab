@@ -13,6 +13,6 @@ for ii = 1:m.dx
     q_sigma{ii} = mtimesx(qq,qq,'T') + dd;
 end
 
-% filename = '~/dev/research/gatsby/svGPFA/code/test/data/get_full_from_lowplusdiag.mat';
+% filename = '~/dev/research/gatsby-swc/gatsby/svGPFA/pythonCode/ci/data/get_full_from_lowplusdiag.mat';
 % save(filename, 'q_sqrt', 'q_diag', 'q_sigma')
 % 

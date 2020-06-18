@@ -112,7 +112,7 @@ end
 % begin debug
 
 lowerBound = m.FreeEnergy(end,1);
-filename = '~/dev/research/gatsby/svGPFA/code/test/data/variationalEM.mat';
+filename = '~/dev/research/gatsby-swc/gatsby/svGPFA/pythonCode/ci/data/variationalEM.mat';
 save(filename, 'epsilon', 'q_mu0', 'q_sqrt0', 'q_diag0', 'C0', 'b0', 'index', 'ttQuad', 'wwQuad', 'xxHerm', 'wwHerm', 'Z0', 'Y', 'hprs0', 'kernelNames', 'lowerBound');
 
 keyboard

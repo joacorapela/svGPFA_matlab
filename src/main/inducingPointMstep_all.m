@@ -40,7 +40,7 @@ end
 
 maxIter = optimopts.MaxIter;
 
-filename = '~/dev/research/gatsby/svGPFA/code/test/data/inducingPointsMstep_all.mat';
+filename = '~/dev/research/gatsby-swc/gatsby/svGPFA/pythonCode/ci/data/inducingPointsMstep_all.mat';
 save(filename, 'epsilon', 'q_mu', 'q_sqrt', 'q_diag', 'C', 'b', 'index', 'ttQuad', 'wwQuad', 'xxHerm', 'wwHerm', 'Z0', 'Zf', 'Y', 'hprs', 'kernelNames', 'maxIter', 'prs', 'nLowerBound', 'exitfag', 'output');
 
 keyboard

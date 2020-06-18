@@ -66,7 +66,7 @@ end
 
 % Y = m.Y;
 % 
-% filename = '~/dev/research/gatsby/svGPFA/code/test/data/BuildKernelMatrices_fromSpikes.mat';
+% filename = '~/dev/research/gatsby-swc/gatsby/svGPFA/pythonCode/ci/data/BuildKernelMatrices_fromSpikes.mat';
 % save(filename, 'Y', 'Z', 'kernelNames', 'hprs', 'Ktz', 'Ktt');
 % 
 % keyboard

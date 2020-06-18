@@ -43,7 +43,7 @@ grad = -gradElik + gradKLd; % gradients
 % Y = m.Y;
 % BinWidth = m.BinWidth;
 % 
-% filename = '~/dev/research/gatsby/svGPFA/code/test/data/Estep_Objective_svGPFA.mat';
+% filename = '~/dev/research/gatsby-swc/gatsby/svGPFA/pythonCode/ci/data/Estep_Objective_svGPFA.mat';
 % save(filename, 'q_mu', 'q_sqrt', 'q_diag', 'tt', 'C', 'b', 'kernelNames', 'hprs', 'xxHerm', 'wwHerm', 'Z', 'Y', 'BinWidth', 'Elik', 'KLd', 'obj', 'grad');
 % 
 % keyboard

@@ -53,7 +53,7 @@ end
 
 maxIter = optimopts.MaxIter;
 
-filename = '~/dev/research/gatsby/svGPFA/code/test/data/hyperMstep_Update.mat';
+filename = '~/dev/research/gatsby-swc/gatsby/svGPFA/pythonCode/ci/data/hyperMstep_Update.mat';
 save(filename, 'epsilon', 'q_mu', 'q_sqrt', 'q_diag', 'C', 'b', 'index', 'ttQuad', 'wwQuad', 'xxHerm', 'wwHerm', 'Z', 'Y', 'hprs0', 'kernelNames', 'maxIter', 'prs', 'nLowerBound', 'exitfag', 'output');
 
 keyboard
