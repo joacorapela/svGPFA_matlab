@@ -24,7 +24,7 @@ if m.opts.verbose == 2 % extra level of verbosity
     DerivCheck(fun,prs0);
 end
 % minimize
-optimopts = optimset('Gradobj','on','display', 'none');
+optimopts = optimset('Gradobj','on','display', 'iter');
 optimopts.MaxIter = m.opts.maxiter.Mstep;
 [prs, nLowerBound, exitfag, output] = minFunc(fun,prs0,optimopts);
 
