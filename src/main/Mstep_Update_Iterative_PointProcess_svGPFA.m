@@ -61,7 +61,7 @@ maxIter = optimopts.MaxIter;
 prsC = m.prs.C;
 prsb = m.prs.b;
 
-filename = '~/dev/research/gatsby/svGPFA/code/test/data/Mstep_Update_Iterative_PointProcess_svGPFA.mat';
+filename = '~/dev/research/gatsby-swc/gatsby/svGPFA/pythonCode/ci/data/Mstep_Update_Iterative_PointProcess_svGPFA.mat';
 save(filename, 'epsilon', 'q_mu', 'q_sqrt', 'q_diag', 'C0', 'b0', 'index', 'ttQuad', 'wwQuad', 'xxHerm', 'wwHerm', 'Z', 'Y', 'hprs', 'kernelNames', 'maxIter', 'prsC', 'prsb', 'nLowerBound', 'exitfag', 'output');
 
 keyboard

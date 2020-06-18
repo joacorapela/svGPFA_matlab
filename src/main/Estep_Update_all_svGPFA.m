@@ -52,7 +52,7 @@ optimopts.MaxIter = m.opts.maxiter.inducingPointMstep;
 % 
 % maxIter = optimopts.MaxIter;
 % 
-% filename = '~/dev/research/gatsby/svGPFA/code/ci/data/Estep_Update_all_svGPFA.mat';
+% filename = '~/dev/research/gatsby-swc/gatsby/svGPFA/pythonCode/ci/data/Estep_Update_all_svGPFA.mat';
 % save(filename, 'epsilon', 'q_mu', 'q_sqrt', 'q_diag', 'tt', 'xxHerm', 'wwHerm', 'Z', 'Y', 'C', 'b', 'kernelNames', 'hprs', 'BinWidth', 'maxIter', 'prs', 'nLowerBound', 'exitfag', 'output');
 % 
 % keyboard

@@ -34,5 +34,5 @@ lik_pp = -lik_pp1 + lik_pp2;
 % wwQuad = m.wwQuad;
 % ttQuad = m.ttQuad;
 % 
-% filename = '~/dev/research/gatsby/svGPFA/code/test/data/expectedLogLik_PointProcess.mat';
+% filename = '~/dev/research/gatsby-swc/gatsby/svGPFA/pythonCode/ci/data/expectedLogLik_PointProcess.mat';
 % save(filename, 'mu_h_Quad', 'var_h_Quad', 'mu_h_Spikes', 'var_h_Spikes','xxHerm', 'wwHerm', 'ttQuad', 'wwQuad', 'lik_pp', '-v6');

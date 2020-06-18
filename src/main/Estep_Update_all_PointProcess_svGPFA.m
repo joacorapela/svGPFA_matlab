@@ -54,7 +54,7 @@ end
 
 maxIter = optimopts.MaxIter;
 
-filename = '~/dev/research/gatsby-swc/gatsby/svGPFA/code/ci/data/Estep_Update_all_PointProcess_svGPFA.mat';
+filename = '~/dev/research/gatsby-swc/gatsby/svGPFA/pythonCode/ci/data/Estep_Update_all_PointProcess_svGPFA.mat';
 save(filename, 'epsilon', 'q_mu', 'q_sqrt', 'q_diag', 'C', 'b', 'index', 'ttQuad', 'wwQuad', 'xxHerm', 'wwHerm', 'Z', 'Y', 'kernelNames', 'hprs', 'maxIter', 'prs', 'nLowerBound', 'exitfag', 'output');
 
 keyboard

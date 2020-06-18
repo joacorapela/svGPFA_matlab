@@ -60,7 +60,7 @@ for k=1:length(m.kerns)
     kernelNames{k} = func2str(m.kerns{k}.K);
 end
 
-filename = '~/dev/research/gatsby/svGPFA/code/test/data/BuildKernelMatrices.mat';
+filename = '~/dev/research/gatsby-swc/gatsby/svGPFA/pythonCode/ci/data/BuildKernelMatrices.mat';
 epsilon = m.epsilon;
 save(filename, 'epsilon', 'tt', 'Z', 'kernelNames', 'hprs', 'Kzz', 'Kzzi', 'Ktz', 'Ktt');
 

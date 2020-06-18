@@ -7,5 +7,5 @@ end
 
 % Kzzi = Kmats.Kzzi;
 % 
-% filename = '~/dev/research/gatsby/svGPFA/code/test/data/klDivergence.mat';
+% filename = '~/dev/research/gatsby-swc/gatsby/svGPFA/pythonCode/ci/data/klDivergence.mat';
 % save(filename, 'Kzzi', 'q_mu', 'q_sigma', 'kldiv', '-v6');

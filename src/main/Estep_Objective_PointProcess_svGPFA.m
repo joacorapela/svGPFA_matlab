@@ -66,7 +66,7 @@ end
 
 keyboard
 
-filename = '~/dev/research/gatsby-swc/gatsby/svGPFA/code/ci/data/Estep_Objective_PointProcess_svGPFA.mat';
+filename = '~/dev/research/gatsby-swc/gatsby/svGPFA/pythonCode/ci/data/Estep_Objective_PointProcess_svGPFA.mat';
 
 save(filename, 'q_mu', 'q_sqrt', 'q_diag', 'ttQuad', 'wwQuad', 'xxHerm', 'wwHerm', 'Z', 'Y', 'kernelNames', 'hprs', 'index', 'C', 'b', 'varRnk', 'obj', 'grad', 'KLd', 'mu_h_Quad','var_h_Quad', 'mu_h_Spikes','var_h_Spikes', 'mu_k_Quad','var_k_Quad', 'mu_k_Spikes','var_k_Spikes', 'Elik');
 
