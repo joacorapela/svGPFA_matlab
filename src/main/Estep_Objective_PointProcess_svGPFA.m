@@ -29,45 +29,47 @@ grad = -gradElik + gradKLd; % gradients
 
 % debug section start
 
-% warning('Debug code is running on Estep_Objective_PointProcess_svGPFA.m');
+warning('Debug code is running on Estep_Objective_PointProcess_svGPFA.m');
 
-% q_mu = m.q_mu;
-% q_sqrt = m.q_sqrt;
-% q_diag = m.q_diag;
+q_mu = m.q_mu;
+q_sqrt = m.q_sqrt;
+q_diag = m.q_diag;
 
-% ttQuad = m.ttQuad;
-% wwQuad = m.wwQuad;
-% xxHerm = m.xxHerm;
-% wwHerm = m.wwHerm;
+ttQuad = m.ttQuad;
+wwQuad = m.wwQuad;
+xxHerm = m.xxHerm;
+wwHerm = m.wwHerm;
 
-% Kzz = Kmats_Quad.Kzz;
-% Kzzi = Kmats_Quad.Kzzi;
-% quadKtz = Kmats_Quad.Ktz;
-% quadKtt = Kmats_Quad.Ktt;
-% spikeKtz = Kmats_Spikes.Ktz;
-% spikeKtt = Kmats_Spikes.Ktt;
+Kzz = Kmats_Quad.Kzz;
+Kzzi = Kmats_Quad.Kzzi;
+quadKtz = Kmats_Quad.Ktz;
+quadKtt = Kmats_Quad.Ktt;
+spikeKtz = Kmats_Spikes.Ktz;
+spikeKtt = Kmats_Spikes.Ktt;
 
-% C = m.prs.C;
-% b = m.prs.b;
+C = m.prs.C;
+b = m.prs.b;
 
-% varRnk = m.opts.varRnk;
+varRnk = m.opts.varRnk;
 
-% index = m.index;
+index = m.index;
 
-% Z = m.Z;
-% Y = m.Y;
+Z = m.Z;
+Y = m.Y;
 
-% hprs = cellfun(@(struct)struct.hprs, m.kerns,'uni',0)';
+hprs = cellfun(@(struct)struct.hprs, m.kerns,'uni',0)';
 
-% kernelNames = {};
-% for k=1:length(m.kerns)
-%     kernelNames{k} = func2str(m.kerns{k}.K);
-% end
+kernelNames = {};
+for k=1:length(m.kerns)
+    kernelNames{k} = func2str(m.kerns{k}.K);
+end
 
-% filename = '~/dev/research/gatsby-swc/gatsby/svGPFA/code/ci/data/Estep_Objective_PointProcess_svGPFA.mat';
+keyboard
 
-% save(filename, 'q_mu', 'q_sqrt', 'q_diag', 'ttQuad', 'wwQuad', 'xxHerm', 'wwHerm', 'Z', 'Y', 'kernelNames', 'hprs', 'index', 'C', 'b', 'varRnk', 'obj', 'grad', 'KLd', 'mu_h_Quad','var_h_Quad', 'mu_h_Spikes','var_h_Spikes', 'mu_k_Quad','var_k_Quad', 'mu_k_Spikes','var_k_Spikes', 'Elik');
+filename = '~/dev/research/gatsby-swc/gatsby/svGPFA/code/ci/data/Estep_Objective_PointProcess_svGPFA.mat';
 
-% keyboard
+save(filename, 'q_mu', 'q_sqrt', 'q_diag', 'ttQuad', 'wwQuad', 'xxHerm', 'wwHerm', 'Z', 'Y', 'kernelNames', 'hprs', 'index', 'C', 'b', 'varRnk', 'obj', 'grad', 'KLd', 'mu_h_Quad','var_h_Quad', 'mu_h_Spikes','var_h_Spikes', 'mu_k_Quad','var_k_Quad', 'mu_k_Spikes','var_k_Spikes', 'Elik');
+
+keyboard
 
 % debug section end
