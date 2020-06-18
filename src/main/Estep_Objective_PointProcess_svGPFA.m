@@ -57,6 +57,8 @@ index = m.index;
 Z = m.Z;
 Y = m.Y;
 
+epsilon = m.epsilon;
+
 hprs = cellfun(@(struct)struct.hprs, m.kerns,'uni',0)';
 
 kernelNames = {};
@@ -64,11 +66,9 @@ for k=1:length(m.kerns)
     kernelNames{k} = func2str(m.kerns{k}.K);
 end
 
-keyboard
-
 filename = '~/dev/research/gatsby-swc/gatsby/svGPFA/pythonCode/ci/data/Estep_Objective_PointProcess_svGPFA.mat';
 
-save(filename, 'q_mu', 'q_sqrt', 'q_diag', 'ttQuad', 'wwQuad', 'xxHerm', 'wwHerm', 'Z', 'Y', 'kernelNames', 'hprs', 'index', 'C', 'b', 'varRnk', 'obj', 'grad', 'KLd', 'mu_h_Quad','var_h_Quad', 'mu_h_Spikes','var_h_Spikes', 'mu_k_Quad','var_k_Quad', 'mu_k_Spikes','var_k_Spikes', 'Elik');
+save(filename, 'epsilon', 'q_mu', 'q_sqrt', 'q_diag', 'ttQuad', 'wwQuad', 'xxHerm', 'wwHerm', 'Z', 'Y', 'kernelNames', 'hprs', 'index', 'C', 'b', 'varRnk', 'obj', 'grad', 'KLd', 'mu_h_Quad','var_h_Quad', 'mu_h_Spikes','var_h_Spikes', 'mu_k_Quad','var_k_Quad', 'mu_k_Spikes','var_k_Spikes', 'Elik');
 
 keyboard
 
