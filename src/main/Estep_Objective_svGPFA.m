@@ -25,6 +25,8 @@ grad = -gradElik + gradKLd; % gradients
 
 % begin debug
 
+% warning('Debug code is running on Estep_Objective_svGPFA.m');
+
 % tt= m.tt;
 % 
 % C = m.prs.C;

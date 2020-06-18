@@ -15,6 +15,8 @@ pred.multiOutputGP.variance = var_h;
 
 % start debug
 
+% warning('Debug code is running on predictNew_svGPFA.m');
+
 % q_mu = m.q_mu;
 % q_sqrt = m.q_sqrt;
 % q_diag = m.q_diag;

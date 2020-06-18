@@ -32,6 +32,8 @@ m = m.EMfunctions.updateHyperParams(m,prs);
 
 % begin debug
 
+warning('Debug code is running on hyperMstep_Update.m');
+
 q_mu = m.q_mu;
 q_sqrt = m.q_sqrt;
 q_diag = m.q_diag;

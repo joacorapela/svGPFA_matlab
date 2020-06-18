@@ -23,6 +23,8 @@ function m = variationalEM(m);
 
 % debug start
 
+warning('Debug code is running on variationalEM.m');
+
 q_mu0 = m.q_mu;
 q_sqrt0 = m.q_sqrt;
 q_diag0 = m.q_diag;

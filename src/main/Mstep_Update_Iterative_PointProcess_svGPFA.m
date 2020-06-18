@@ -34,6 +34,8 @@ m.prs.b = prs(m.dy*m.dx + 1 : end);
 
 % begin debug
 
+warning('Debug code is running on Mstep_Update_Iterative_PointProcess_svGPFA.m');
+
 q_mu = m.q_mu;
 q_sqrt = m.q_sqrt;
 q_diag = m.q_diag;
