@@ -30,27 +30,32 @@ DEF_epsilon = sqrt(eps);
 % update kernel hyperparameters in model structure
 m = m.EMfunctions.updateHyperParams(m,prs);
 
-% q_mu = m.q_mu;
-% q_sqrt = m.q_sqrt;
-% q_diag = m.q_diag;
-% C = m.prs.C;
-% b = m.prs.b;
-% index = m.index;
-% ttQuad = m.ttQuad;
-% wwQuad = m.wwQuad;
-% xxHerm = m.xxHerm;
-% wwHerm = m.wwHerm;
-% Y = m.Y;
-% Z = m.Z;
-% 
-% kernelNames = {};
-% for k=1:length(m.kerns)
-%     kernelNames{k} = func2str(m.kerns{k}.K);
-% end
-% 
-% maxIter = optimopts.MaxIter;
-% 
-% filename = '~/dev/research/gatsby/svGPFA/code/test/data/hyperMstep_Update.mat';
-% save(filename, 'q_mu', 'q_sqrt', 'q_diag', 'C', 'b', 'index', 'ttQuad', 'wwQuad', 'xxHerm', 'wwHerm', 'Z', 'Y', 'hprs0', 'kernelNames', 'maxIter', 'prs', 'nLowerBound', 'exitfag', 'output');
-% 
-% keyboard
+% begin debug
+
+q_mu = m.q_mu;
+q_sqrt = m.q_sqrt;
+q_diag = m.q_diag;
+C = m.prs.C;
+b = m.prs.b;
+index = m.index;
+ttQuad = m.ttQuad;
+wwQuad = m.wwQuad;
+xxHerm = m.xxHerm;
+wwHerm = m.wwHerm;
+Y = m.Y;
+Z = m.Z;
+epsilon = n.epsilon;
+
+kernelNames = {};
+for k=1:length(m.kerns)
+    kernelNames{k} = func2str(m.kerns{k}.K);
+end
+
+maxIter = optimopts.MaxIter;
+
+filename = '~/dev/research/gatsby/svGPFA/code/test/data/hyperMstep_Update.mat';
+save(filename, 'epsilon', 'q_mu', 'q_sqrt', 'q_diag', 'C', 'b', 'index', 'ttQuad', 'wwQuad', 'xxHerm', 'wwHerm', 'Z', 'Y', 'hprs0', 'kernelNames', 'maxIter', 'prs', 'nLowerBound', 'exitfag', 'output');
+
+keyboard
+
+% end debug

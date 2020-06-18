@@ -23,23 +23,24 @@ function m = variationalEM(m);
 
 % debug start
 
-% q_mu0 = m.q_mu;
-% q_sqrt0 = m.q_sqrt;
-% q_diag0 = m.q_diag;
-% C0 = m.prs.C;
-% b0 = m.prs.b;
-% index = m.index;
-% ttQuad = m.ttQuad;
-% wwQuad = m.wwQuad;
-% xxHerm = m.xxHerm;
-% wwHerm = m.wwHerm;
-% Z0 = m.Z;
-% Y = m.Y;
-% hprs0 = cellfun(@(struct)struct.hprs, m.kerns,'uni',0)';
-% kernelNames = {};
-% for k=1:length(m.kerns)
-%     kernelNames{k} = func2str(m.kerns{k}.K);
-% end
+q_mu0 = m.q_mu;
+q_sqrt0 = m.q_sqrt;
+q_diag0 = m.q_diag;
+C0 = m.prs.C;
+b0 = m.prs.b;
+index = m.index;
+ttQuad = m.ttQuad;
+wwQuad = m.wwQuad;
+xxHerm = m.xxHerm;
+wwHerm = m.wwHerm;
+Z0 = m.Z;
+Y = m.Y;
+epsilon = m.epsilon;
+hprs0 = cellfun(@(struct)struct.hprs, m.kerns,'uni',0)';
+kernelNames = {};
+for k=1:length(m.kerns)
+    kernelNames{k} = func2str(m.kerns{k}.K);
+end
 
 % debug end
 
@@ -108,9 +109,12 @@ if m.opts.verbose
     fprintf('Elapsed time is %1.5f seconds\n',m.RunTime);
 end
 
-% lowerBound = m.FreeEnergy(end,1);
-% filename = '~/dev/research/gatsby/svGPFA/code/test/data/variationalEM.mat';
-% save(filename, 'q_mu0', 'q_sqrt0', 'q_diag0', 'C0', 'b0', 'index', 'ttQuad', 'wwQuad', 'xxHerm', 'wwHerm', 'Z0', 'Y', 'hprs0', 'kernelNames', 'lowerBound');
-% 
-% keyboard
-% 
+% begin debug
+
+lowerBound = m.FreeEnergy(end,1);
+filename = '~/dev/research/gatsby/svGPFA/code/test/data/variationalEM.mat';
+save(filename, 'epsilon', 'q_mu0', 'q_sqrt0', 'q_diag0', 'C0', 'b0', 'index', 'ttQuad', 'wwQuad', 'xxHerm', 'wwHerm', 'Z0', 'Y', 'hprs0', 'kernelNames', 'lowerBound');
+
+keyboard
+
+% end debug

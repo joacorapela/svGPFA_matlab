@@ -32,32 +32,38 @@ optimopts.MaxIter = m.opts.maxiter.Mstep;
 m.prs.C = reshape(prs(1:m.dy*m.dx),[m.dy, m.dx]);
 m.prs.b = prs(m.dy*m.dx + 1 : end);
 
-% q_mu = m.q_mu;
-% q_sqrt = m.q_sqrt;
-% q_diag = m.q_diag;
-% C = m.prs.C;
-% b = m.prs.b;
-% index = m.index;
-% ttQuad = m.ttQuad;
-% wwQuad = m.wwQuad;
-% xxHerm = m.xxHerm;
-% wwHerm = m.wwHerm;
-% Z = m.Z;
-% Y = m.Y;
-% 
-% hprs = cellfun(@(struct)struct.hprs, m.kerns,'uni',0)';
-% 
-% kernelNames = {};
-% for k=1:length(m.kerns)
-%     kernelNames{k} = func2str(m.kerns{k}.K);
-% end
-% 
-% maxIter = optimopts.MaxIter;
-% 
-% prsC = m.prs.C;
-% prsb = m.prs.b;
-% 
-% filename = '~/dev/research/gatsby/svGPFA/code/test/data/Mstep_Update_Iterative_PointProcess_svGPFA.mat';
-% save(filename, 'q_mu', 'q_sqrt', 'q_diag', 'C0', 'b0', 'index', 'ttQuad', 'wwQuad', 'xxHerm', 'wwHerm', 'Z', 'Y', 'hprs', 'kernelNames', 'maxIter', 'prsC', 'prsb', 'nLowerBound', 'exitfag', 'output');
-% 
-% keyboard
+% begin debug
+
+q_mu = m.q_mu;
+q_sqrt = m.q_sqrt;
+q_diag = m.q_diag;
+C = m.prs.C;
+b = m.prs.b;
+index = m.index;
+ttQuad = m.ttQuad;
+wwQuad = m.wwQuad;
+xxHerm = m.xxHerm;
+wwHerm = m.wwHerm;
+Z = m.Z;
+Y = m.Y;
+%
+epsilon = m.epsilon;
+
+hprs = cellfun(@(struct)struct.hprs, m.kerns,'uni',0)';
+
+kernelNames = {};
+for k=1:length(m.kerns)
+    kernelNames{k} = func2str(m.kerns{k}.K);
+end
+
+maxIter = optimopts.MaxIter;
+
+prsC = m.prs.C;
+prsb = m.prs.b;
+
+filename = '~/dev/research/gatsby/svGPFA/code/test/data/Mstep_Update_Iterative_PointProcess_svGPFA.mat';
+save(filename, 'epsilon', 'q_mu', 'q_sqrt', 'q_diag', 'C0', 'b0', 'index', 'ttQuad', 'wwQuad', 'xxHerm', 'wwHerm', 'Z', 'Y', 'hprs', 'kernelNames', 'maxIter', 'prsC', 'prsb', 'nLowerBound', 'exitfag', 'output');
+
+keyboard
+
+% end debug

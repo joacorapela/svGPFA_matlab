@@ -41,6 +41,8 @@ optimopts.MaxIter = m.opts.maxiter.inducingPointMstep;
 % Y = m.Y;
 % BinWidth = m.BinWidth;
 % 
+% epsilon = m.epsilon;
+% 
 % hprs = cellfun(@(struct)struct.hprs, m.kerns,'uni',0)';
 % 
 % kernelNames = {};
@@ -51,7 +53,7 @@ optimopts.MaxIter = m.opts.maxiter.inducingPointMstep;
 % maxIter = optimopts.MaxIter;
 % 
 % filename = '~/dev/research/gatsby/svGPFA/code/ci/data/Estep_Update_all_svGPFA.mat';
-% save(filename, 'q_mu', 'q_sqrt', 'q_diag', 'tt', 'xxHerm', 'wwHerm', 'Z', 'Y', 'C', 'b', 'kernelNames', 'hprs', 'BinWidth', 'maxIter', 'prs', 'nLowerBound', 'exitfag', 'output');
+% save(filename, 'epsilon', 'q_mu', 'q_sqrt', 'q_diag', 'tt', 'xxHerm', 'wwHerm', 'Z', 'Y', 'C', 'b', 'kernelNames', 'hprs', 'BinWidth', 'maxIter', 'prs', 'nLowerBound', 'exitfag', 'output');
 % 
 % keyboard
 
