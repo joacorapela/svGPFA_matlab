@@ -10,42 +10,42 @@ if m.opts.verbose == 2 % extra level of verbosity
     DerivCheck(fun,prs0);
 end
 % run optimizer
-optimopts = optimset('Gradobj','on','display', 'iter');
+optimopts = optimset('Gradobj','on','display', 'none');
 optimopts.MaxIter = m.opts.maxiter.inducingPointMstep;
 
 [prs, nLowerBound, exitfag, output] = minFunc(fun,prs0,optimopts);
 
 % beging debug
 
-warning('Debug code is running on inducingPointMstep_all.m');
-
-q_mu = m.q_mu;
-q_sqrt = m.q_sqrt;
-q_diag = m.q_diag;
-C = m.prs.C;
-b = m.prs.b;
-index = m.index;
-ttQuad = m.ttQuad;
-wwQuad = m.wwQuad;
-xxHerm = m.xxHerm;
-wwHerm = m.wwHerm;
-Y = m.Y;
-Zf = m.Z;
-epsilon = m.epsilon;
-
-hprs = cellfun(@(struct)struct.hprs, m.kerns,'uni',0)';
-
-kernelNames = {};
-for k=1:length(m.kerns)
-    kernelNames{k} = func2str(m.kerns{k}.K);
-end
-
-maxIter = optimopts.MaxIter;
-
-filename = '~/dev/research/gatsby-swc/gatsby/svGPFA/pythonCode/ci/data/inducingPointsMstep_all.mat';
-save(filename, 'epsilon', 'q_mu', 'q_sqrt', 'q_diag', 'C', 'b', 'index', 'ttQuad', 'wwQuad', 'xxHerm', 'wwHerm', 'Z0', 'Zf', 'Y', 'hprs', 'kernelNames', 'maxIter', 'prs', 'nLowerBound', 'exitfag', 'output');
-
-keyboard
+% warning('Debug code is running on inducingPointMstep_all.m');
+% 
+% q_mu = m.q_mu;
+% q_sqrt = m.q_sqrt;
+% q_diag = m.q_diag;
+% C = m.prs.C;
+% b = m.prs.b;
+% index = m.index;
+% ttQuad = m.ttQuad;
+% wwQuad = m.wwQuad;
+% xxHerm = m.xxHerm;
+% wwHerm = m.wwHerm;
+% Y = m.Y;
+% Zf = m.Z;
+% epsilon = m.epsilon;
+% 
+% hprs = cellfun(@(struct)struct.hprs, m.kerns,'uni',0)';
+% 
+% kernelNames = {};
+% for k=1:length(m.kerns)
+%     kernelNames{k} = func2str(m.kerns{k}.K);
+% end
+% 
+% maxIter = optimopts.MaxIter;
+% 
+% filename = '~/dev/research/gatsby-swc/gatsby/svGPFA/pythonCode/ci/data/inducingPointsMstep_all.mat';
+% save(filename, 'epsilon', 'q_mu', 'q_sqrt', 'q_diag', 'C', 'b', 'index', 'ttQuad', 'wwQuad', 'xxHerm', 'wwHerm', 'Z0', 'Zf', 'Y', 'hprs', 'kernelNames', 'maxIter', 'prs', 'nLowerBound', 'exitfag', 'output');
+% 
+% keyboard
 
 % end debug
 

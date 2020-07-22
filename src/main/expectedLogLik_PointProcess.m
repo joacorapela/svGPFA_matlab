@@ -29,6 +29,8 @@ lik_pp1 = sum(vec(mtimesx(m.wwQuad(:,:,trEval),'T',intval)));
 lik_pp2 = sum(log_link);
 lik_pp = -lik_pp1 + lik_pp2;
 
+% begin debug
+% warning('Debug code is running on expectedLogLik_PointProcess.m');
 % xxHerm = m.xxHerm;
 % wwHerm = m.wwHerm;
 % wwQuad = m.wwQuad;
@@ -36,3 +38,6 @@ lik_pp = -lik_pp1 + lik_pp2;
 % 
 % filename = '~/dev/research/gatsby-swc/gatsby/svGPFA/pythonCode/ci/data/expectedLogLik_PointProcess.mat';
 % save(filename, 'mu_h_Quad', 'var_h_Quad', 'mu_h_Spikes', 'var_h_Spikes','xxHerm', 'wwHerm', 'ttQuad', 'wwQuad', 'lik_pp', '-v6');
+
+% end debug
+

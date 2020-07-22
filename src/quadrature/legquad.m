@@ -43,3 +43,10 @@ end
 if a ~= -1 || b ~= 1
     x = (x+1)*(h/2) + a;
 end
+
+saveCItestData = getGlobal_saveCItestData();
+if saveCItestData
+    filename = 'results/ciTestData/legquad.mat';
+    save(filename, 'n', 'a', 'b', 'x', 'w');
+    keyboard
+end

@@ -13,7 +13,7 @@ pred.latents.variance = var_k;
 pred.multiOutputGP.mean = mu_h;
 pred.multiOutputGP.variance = var_h;
 
-% start debug
+% begin debug
 
 % warning('Debug code is running on predictNew_svGPFA.m');
 
@@ -33,10 +33,6 @@ pred.multiOutputGP.variance = var_h;
 % for k=1:length(m.kerns)
 %     kernelNames{k} = func2str(m.kerns{k}.K);
 % end
-
-% end debug
-
-% start debug
 
 % muK = mu_k;
 % varK = var_k;

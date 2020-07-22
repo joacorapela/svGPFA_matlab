@@ -32,32 +32,32 @@ m = m.EMfunctions.updateHyperParams(m,prs);
 
 % begin debug
 
-warning('Debug code is running on hyperMstep_Update.m');
-
-q_mu = m.q_mu;
-q_sqrt = m.q_sqrt;
-q_diag = m.q_diag;
-C = m.prs.C;
-b = m.prs.b;
-index = m.index;
-ttQuad = m.ttQuad;
-wwQuad = m.wwQuad;
-xxHerm = m.xxHerm;
-wwHerm = m.wwHerm;
-Y = m.Y;
-Z = m.Z;
-epsilon = n.epsilon;
-
-kernelNames = {};
-for k=1:length(m.kerns)
-    kernelNames{k} = func2str(m.kerns{k}.K);
-end
-
-maxIter = optimopts.MaxIter;
-
-filename = '~/dev/research/gatsby-swc/gatsby/svGPFA/pythonCode/ci/data/hyperMstep_Update.mat';
-save(filename, 'epsilon', 'q_mu', 'q_sqrt', 'q_diag', 'C', 'b', 'index', 'ttQuad', 'wwQuad', 'xxHerm', 'wwHerm', 'Z', 'Y', 'hprs0', 'kernelNames', 'maxIter', 'prs', 'nLowerBound', 'exitfag', 'output');
-
-keyboard
+% warning('Debug code is running on hyperMstep_Update.m');
+% 
+% q_mu = m.q_mu;
+% q_sqrt = m.q_sqrt;
+% q_diag = m.q_diag;
+% C = m.prs.C;
+% b = m.prs.b;
+% index = m.index;
+% ttQuad = m.ttQuad;
+% wwQuad = m.wwQuad;
+% xxHerm = m.xxHerm;
+% wwHerm = m.wwHerm;
+% Y = m.Y;
+% Z = m.Z;
+% epsilon = n.epsilon;
+% 
+% kernelNames = {};
+% for k=1:length(m.kerns)
+%     kernelNames{k} = func2str(m.kerns{k}.K);
+% end
+% 
+% maxIter = optimopts.MaxIter;
+% 
+% filename = '~/dev/research/gatsby-swc/gatsby/svGPFA/pythonCode/ci/data/hyperMstep_Update.mat';
+% save(filename, 'epsilon', 'q_mu', 'q_sqrt', 'q_diag', 'C', 'b', 'index', 'ttQuad', 'wwQuad', 'xxHerm', 'wwHerm', 'Z', 'Y', 'hprs0', 'kernelNames', 'maxIter', 'prs', 'nLowerBound', 'exitfag', 'output');
+% 
+% keyboard
 
 % end debug
