@@ -1,12 +1,15 @@
 %% script to simulate Poisson Process data and run sv-ppGPFA 
 clear all; close all;
 rng(2)
-addpath(genpath('~/dev/research/programs/src/matlab/svGPFA_savingTestData'))
+% addpath(genpath('~/dev/research/programs/src/matlab/svGPFA_savingTestData'))
+addpath(genpath('../src'))
 %% make simulated data
 dy = 50; % number of neurons
 ntr = 5; % number of trials
+simulationDuration = 5;
+
 % generate dataset with three latents
-[Y,prs,rates,fs,dx,dy,ntr,trLen,tt] = generate_toy_data(dy,ntr);
+[Y,prs,rates,fs,dx,dy,ntr,trLen,tt] = generate_toy_data(dy,ntr,simulationDuration);
 
 ngtest = 2000;
 testTimes = linspace(0,max(trLen),ngtest)';
@@ -18,5 +21,12 @@ for nn = 1:ntr
     end
 end
 
-simFilename = 'results/pointProcessSimulation.mat';
-save(simFilename, 'Y', 'prs', 'rates', 'fs', 'dx', 'dy', 'ntr', 'trLen', 'tt', 'testTimes', 'trueLatents')
+exit = false;
+while ~exit
+    rNum = randi([0, 10^8-1], 1);
+    simFilename = sprintf('results/%08d-pointProcessSimulation.mat', rNum);
+    if ~isfile(simFilename)
+        exit = true;
+        save(simFilename, 'Y', 'prs', 'rates', 'fs', 'dx', 'dy', 'ntr', 'trLen', 'tt', 'testTimes', 'trueLatents')
+    end
+end
