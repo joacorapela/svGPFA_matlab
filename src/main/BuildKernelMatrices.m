@@ -55,13 +55,19 @@ elseif flag == 2
     KMats.dKzzin = dKzzin;
 end
 
-kernelNames = {};
-for k=1:length(m.kerns)
-    kernelNames{k} = func2str(m.kerns{k}.K);
-end
+% begin debug
 
-filename = '~/dev/research/gatsby-swc/gatsby/svGPFA/pythonCode/ci/data/BuildKernelMatrices.mat';
-epsilon = m.epsilon;
-save(filename, 'epsilon', 'tt', 'Z', 'kernelNames', 'hprs', 'Kzz', 'Kzzi', 'Ktz', 'Ktt');
+% warning('Debug code is running on BuildKernelMatrices..m');
+% 
+% kernelNames = {};
+% for k=1:length(m.kerns)
+%     kernelNames{k} = func2str(m.kerns{k}.K);
+% end
+% 
+% filename = '~/dev/research/gatsby-swc/gatsby/svGPFA/pythonCode/ci/data/BuildKernelMatrices.mat';
+% epsilon = m.epsilon;
+% save(filename, 'epsilon', 'tt', 'Z', 'kernelNames', 'hprs', 'Kzz', 'Kzzi', 'Ktz', 'Ktt');
+% 
+% keyboard
 
-keyboard
+% end debug
