@@ -1,4 +1,4 @@
-function [Y,prs,rates,fs,dx,dy,ntr,trLen,t] = generate_toy_data(dy,ntr)
+function [Y,prs,rates,fs,dx,dy,ntr,trLen,t] = generate_toy_data(dy,ntr,duration)
 % dy: number of neurons
 % ntr: number of trials
 
@@ -12,7 +12,8 @@ function [Y,prs,rates,fs,dx,dy,ntr,trLen,t] = generate_toy_data(dy,ntr)
 % trLen: trial length
 
 dx = 3; % number of latents 
-T = repmat(20,ntr,1); % maximum time for each trial
+% T = repmat(20,ntr,1); % maximum time for each trial
+T = repmat(duration,ntr,1); % maximum time for each trial
 % T = [19 20];
 
 trLen = T;
