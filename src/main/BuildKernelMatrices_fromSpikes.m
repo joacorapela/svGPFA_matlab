@@ -64,10 +64,9 @@ for k=1:length(m.kerns)
     kernelNames{k} = func2str(m.kerns{k}.K);
 end
 
-% Y = m.Y;
-% 
-% filename = '~/dev/research/gatsby-swc/gatsby/svGPFA/pythonCode/ci/data/BuildKernelMatrices_fromSpikes.mat';
-% save(filename, 'Y', 'Z', 'kernelNames', 'hprs', 'Ktz', 'Ktt');
-% 
-% keyboard
-% 
+global saveCIdata
+filename = '~/dev/research/gatsby-swc/gatsby/svGPFA/pythonCode/ci/data/BuildKernelMatrices_fromSpikes.mat';
+if saveCIdata & ~exist(filename, 'file')==2
+    Y = m.Y;
+    save(filename, 'Y', 'Z', 'kernelNames', 'hprs', 'Ktz', 'Ktt');
+end
