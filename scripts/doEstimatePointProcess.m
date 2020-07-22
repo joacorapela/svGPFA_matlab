@@ -1,32 +1,45 @@
 %% script to simulate Poisson Process data and run sv-ppGPFA 
 clear all; close all;
 addpath(genpath('../src'))
-simFilename = 'results/pointProcessSimulation.mat';
+addpath(genpath('~/dev/research/programs/src/matlab/iniconfig'))
+
+completelyRandomEmbedding = false;
+embeddingSNR = 2;
+% simulationNumber=95041940; %05 seconds long
+% simulationNumber=46476422; %10 seconds long
+simulationNumber=85331586; %20 seconds long
+% simulationNumber=98591910; %40 seconds long
+indPointsLocsGramMatrixEpsilon=1e-2;
+
+simFilename = sprintf('results/%08d-pointProcessSimulation.mat', simulationNumber);
 load(simFilename);
 
-% keyboard
-
-% noiseSNR = 2;
-% noiseSD = mean(abs(prs.C(:)))/noiseSNR;
-% noisyPRS.C = prs.C + randn(size(prs.C))*noiseSD;
-% noisyPRS.b = prs.b + randn(size(prs.b))*noiseSD;
-noisyPRS.C = rand(size(prs.C));
-noisyPRS.b = rand(size(prs.b));
+noiseEmbeddingVar = mean(abs(prs.C(:)))/embeddingSNR;
+if completelyRandomEmbedding
+    noisyPRS.C = randn(size(prs.C))*noiseEmbeddingVar;
+    noisyPRS.b = randn(size(prs.b))*noiseEmbeddingVar;
+else
+    noisyPRS.C = prs.C + randn(size(prs.C))*noiseEmbeddingVar;
+    noisyPRS.b = prs.b + randn(size(prs.b))*noiseEmbeddingVar;
+end
 
 %% set up fitting structure
-nZ(1) = 10; % number of inducing points for each latent
-nZ(2) = 11;
-nZ(3) = 12;
+% nZ(1) = 10; % number of inducing points for each latent
+% nZ(2) = 11;
+% nZ(3) = 22;
+nZ(1) = 40; % number of inducing points for each latent
+nZ(2) = 41;
+nZ(3) = 42;
 Nmax = 500;
 dt = max(trLen)/Nmax;
 
 % set up kernels
-% kern1 = buildKernel('Periodic',[1.5;1/2.5]);
-% kern2 = buildKernel('Periodic',[1.2;1/2.5]);
-% kern3 = buildKernel('RBF',1);
-kern1 = buildKernel('Periodic',[3.5;1/0.5]);
-kern2 = buildKernel('Periodic',[0.2;1/3.5]);
-kern3 = buildKernel('RBF',.5);
+kern1 = buildKernel('Periodic',[1.5;1/2.5]);
+kern2 = buildKernel('Periodic',[1.2;1/2.5]);
+kern3 = buildKernel('RBF',1);
+% kern1 = buildKernel('Periodic',[3.5;1/0.5]);
+% kern2 = buildKernel('Periodic',[0.2;1/3.5]);
+% kern3 = buildKernel('RBF',.5);
 kerns = {kern1, kern2,kern3};
 
 % set up list of inducing point locations
@@ -48,6 +61,21 @@ options.nquad = 200;
 % blas_lib = '/usr/lib/x86_64-linux-gnu/libblas.so';
 % mex('-DDEFINEUNIX','mtimesx.c',blas_lib);
 m = InitialiseModel_svGPFA('PointProcess',@exponential,Y,trLen,kerns,Z,noisyPRS,options);
+m.epsilon = indPointsLocsGramMatrixEpsilon; % value of diagonal added to kernel inversion for stability
+
+estimationParamsINI = IniConfig();
+estimationParamsINI.AddSections({'data', 'control_variables', 'kernels_params', 'latents_params', 'indPoints_params'});
+estimationParamsINI.AddKeys('data', 'simulationNumber', simulationNumber);
+estimationParamsINI.AddKeys('control_variables', 'epsilon', indPointsLocsGramMatrixEpsilon);
+for i=1:length(kerns)
+    kernel = kerns{i};
+    estimationParamsINI.AddKeys('kernels_params', sprintf('k%dType', i), func2str(kernel.K));
+    estimationParamsINI.AddKeys('kernels_params', sprintf('k%dHPRS', i), kernel.hprs);
+end
+
+estimationParamsINI.AddKeys('embedding_params', 'completelyRandomEmbedding', int8(completelyRandomEmbedding));
+estimationParamsINI.AddKeys('embedding_params', 'snr', embeddingSNR);
+estimationParamsINI.AddKeys('indPoints_params', 'numberIndPoints', nZ);
 
 %% set extra options and fit model
 m.opts.maxiter.EM = 50; % maximum number of iterations to run
@@ -86,8 +114,6 @@ ngtest = 2000;
 testTimes = linspace(0,max(trLen),ngtest)';
 pred = predictNew_svGPFA(m,testTimes);
 
-% start debug
-
 trueLatents = {};
 for nn = 1:ntr
     for ii = 1:dx
@@ -95,23 +121,28 @@ for nn = 1:ntr
     end
 end
 
-initialConditionsFilename = 'results/pointProcessInitialConditions.mat';
-save(initialConditionsFilename, 'q_mu0', 'q_sqrt0', 'q_diag0', 'C0', 'b0', 'ttQuad', 'wwQuad', 'xxHerm', 'wwHerm', 'Z0', 'Y', 'index', 'hprs0', 'kernelNames');
-
-% keyboard
-
-% end debug
-
-estimationResFilename = 'results/pointProcessEstimationRes.mat';
 lowerBound = m.FreeEnergy;
 elapsedTime = m.elapsedTime;
 meanEstimatedLatents = pred.latents.mean;
 varEstimatedLatents = pred.latents.variance;
-save(estimationResFilename, 'lowerBound', 'elapsedTime', 'testTimes', 'meanEstimatedLatents', 'varEstimatedLatents');
+
+exit = false;
+while ~exit
+    rNum = randi([0, 10^8-1], 1);
+    initialConditionsFilename = sprintf('results/%08d-pointProcessInitialConditions.mat', rNum);
+    estimationResFilename = sprintf('results/%08d-pointProcessEstimationRes.mat', rNum);
+    estimationParamsFilename = sprintf('results/%08d-pointProcessEstimationParams.ini', rNum);
+    if ~isfile(initialConditionsFilename) & ~isfile(estimationResFilename) & ~isfile(estimationParamsFilename) 
+        save(initialConditionsFilename, 'q_mu0', 'q_sqrt0', 'q_diag0', 'C0', 'b0', 'ttQuad', 'wwQuad', 'xxHerm', 'wwHerm', 'Z0', 'Y', 'index', 'hprs0', 'kernelNames');
+        save(estimationResFilename, 'lowerBound', 'elapsedTime', 'testTimes', 'meanEstimatedLatents', 'varEstimatedLatents', 'm');
+        estimationParamsINI.WriteFile(estimationParamsFilename);
+        exit = true;
+    end
+end
 
 %% plot latents for a given trial
 nn = 2;
-figure; 
+figure;
 for ii = 1:dx
     subplot(dx,1,ii);plot(testTimes, fs{ii,nn}(testTimes), 'k', 'Linewidth', 1.5);
     hold on; plot(testTimes, pred.latents.mean(:,ii,nn), 'Linewidth', 1.5);
