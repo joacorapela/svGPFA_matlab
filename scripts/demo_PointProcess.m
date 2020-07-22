@@ -2,6 +2,9 @@
 clear all; close all;
 rng(2)
 addpath(genpath('../src'))
+
+setGlobal_saveCItestData(false);
+
 %% make simulated data
 dy = 50; % number of neurons
 ntr = 5; % number of trials
@@ -31,12 +34,12 @@ Nmax = 500;
 dt = max(trLen)/Nmax;
 
 % set up kernels
-% kern1 = buildKernel('Periodic',[1.5;1/2.5]);
-% kern2 = buildKernel('Periodic',[1.2;1/2.5]);
-% kern3 = buildKernel('RBF',1);
-kern1 = buildKernel('Periodic',[3.5;1/0.5]);
-kern2 = buildKernel('Periodic',[0.2;1/3.5]);
-kern3 = buildKernel('RBF',.5);
+kern1 = buildKernel('Periodic',[1.5;1/2.5]);
+kern2 = buildKernel('Periodic',[1.2;1/2.5]);
+kern3 = buildKernel('RBF',1);
+% kern1 = buildKernel('Periodic',[3.5;1/0.5]);
+% kern2 = buildKernel('Periodic',[0.2;1/3.5]);
+% kern3 = buildKernel('RBF',.5);
 kerns = {kern1, kern2,kern3};
 
 % set up list of inducing point locations
