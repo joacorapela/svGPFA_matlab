@@ -8,7 +8,6 @@ function [Y,prs,rates,fs,dx,dy,ntr,trLen,t] = generate_toy_data(dy,ntr,duration)
 % fs: latents (function pointers)
 % dx: number of latents
 % dy: number of neurons
-% ntr: number of trials
 % trLen: trial length
 
 dx = 3; % number of latents 
