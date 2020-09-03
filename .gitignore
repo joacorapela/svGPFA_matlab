@@ -1,3 +1,18 @@
+# exclude results
+results/
+
+# exclude vim auxiliary files
+*.swp
+
+# exclude nots
+notes/
+
+# exclude mat files
+*.mat
+
+# eclude vim auxiliary files
+*.swp
+
 # Windows default autosave extension
 *.asv
 
