@@ -4,18 +4,18 @@ function sps = simulate_spikes_from_rates(rates,T,ngrid);
 % input:
 % -------
 % rates {n,m}           -- cell array containing function handles for rates
-%                          
+%
 % T     (1xM) vector    -- end point of interval [0,T] in which to generate
 %                          spike train for each trial
-% nonlin      handle    -- function handle for non-linearity 
+% nonlin      handle    -- function handle for non-linearity
 % ngrid (1xM) scalar    -- number of points to use for evaluating intensity
 %
-% output:
+% output: N number of neurons, M number of trials
 % -------
 % sps  {NxM} cell       -- spike train for each neuron, M trials
 % rate {NxM} cell       -- array of function handles with rate functions
 %                          for each neuron, M trials
-% 
+%
 % Duncker, 2017
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
