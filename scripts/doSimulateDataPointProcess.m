@@ -4,9 +4,9 @@ rng(2)
 % addpath(genpath('~/dev/research/programs/src/matlab/svGPFA_savingTestData'))
 addpath(genpath('../src'))
 %% make simulated data
-dy = 50; % number of neurons
+dy = 10; % number of neurons
 ntr = 5; % number of trials
-simulationDuration = 5;
+simulationDuration = 20;
 
 % generate dataset with three latents
 [Y,prs,rates,fs,dx,dy,ntr,trLen,tt] = generate_toy_data(dy,ntr,simulationDuration);
