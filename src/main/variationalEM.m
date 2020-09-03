@@ -45,7 +45,7 @@ end
 
 t_start = tic; % record starting time
 abstol = 1e-05; % convergence tolerance
-m.FreeEnergy = [];
+m.FreeEnergy = [m.EMfunctions.VariationalFreeEnergy(m);];
 
 % print output
 if m.opts.verbose
