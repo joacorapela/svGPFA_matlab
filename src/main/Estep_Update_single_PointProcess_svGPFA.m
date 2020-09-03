@@ -33,7 +33,8 @@ if m.opts.verbose == 2 % extra level of verbosity
 end
 
 % run optimizer
-optimopts = optimset('Gradobj','on','display', 'none');
+optimopts = optimset('Gradobj','on','display', 'iter');
+% optimopts = optimset('Gradobj','on','display', 'none');
 optimopts.MaxIter = m.opts.maxiter.Estep;
 
 prs = minFunc(fun,prs0,optimopts);
