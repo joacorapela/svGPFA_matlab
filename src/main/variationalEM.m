@@ -43,6 +43,11 @@ if saveCItestData
     end
 end
 
+if m.savePartial 
+    savePartialFilename = sprintf(m.savePartialFilenamePattern, 'initial');
+    save(savePartialFilename, 'm');
+end
+
 t_start = tic; % record starting time
 abstol = 1e-05; % convergence tolerance
 m.FreeEnergy = [m.EMfunctions.VariationalFreeEnergy(m);];
@@ -63,6 +68,11 @@ for i = 1:m.opts.maxiter.EM
     % ========= E-step: update variational parameters =========
 
     m = Estep(m);
+
+    if m.savePartial
+        savePartialFilename = sprintf(m.savePartialFilenamePattern, sprintf('eStep%03d', i));
+        save(savePartialFilename, 'm');
+    end
 
     % ========= compute new value of free energy ==================
 
@@ -89,15 +99,27 @@ for i = 1:m.opts.maxiter.EM
 
     if i > 1 % skip first M-step to avoid early convergence to bad optima
         m = Mstep(m);
+        if m.savePartial
+            savePartialFilename = sprintf(m.savePartialFilenamePattern, sprintf('mStepEmbedding%03d', i));
+            save(savePartialFilename, 'm');
+        end
     end
 
     % ========= hyper-M step: optimise wrt hyperparameters =========
 
     m = hyperMstep(m);
+    if m.savePartial
+        savePartialFilename = sprintf(m.savePartialFilenamePattern, sprintf('mStepKernels%03d', i));
+        save(savePartialFilename, 'm');
+    end
 
     % ========= inducing point hyper-M step: optimise wrt inducing point locations =========
 
     m = inducingPointMstep(m);
+    if m.savePartial
+        savePartialFilename = sprintf(m.savePartialFilenamePattern, sprintf('mStepIndPoints%03d', i));
+        save(savePartialFilename, 'm');
+    end
 
     m.elapsedTime(i,1) = toc(t_start);
 end
