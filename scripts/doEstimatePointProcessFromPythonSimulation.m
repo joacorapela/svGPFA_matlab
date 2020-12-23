@@ -4,7 +4,23 @@ clear all; close all;
 addpath(genpath('../src'))
 addpath(genpath('~/dev/research/programs/src/matlab/iniconfig'))
 
-pEstNumber=11120982; % test
+emMaxIter=0; pEstNumber=59541179; % epsilon=1e-3; period0=5.0
+% emMaxIter=0; pEstNumber=88504903; % epsilon=1e-3; period0=5.0
+% emMaxIter=0; pEstNumber=01773732; % epsilon=1e-3; period0=5.0
+% pEstNumber=91876278; % epsilon=1e-3; period0=5.0
+
+% pEstNumber=81621069; % epsilon=1e-3; period0=5.0
+% pEstNumber=61979706; % epsilon=1e-3; period0=7.0
+% pEstNumber=30757705; % epsilon 1e-3, period0=3.0
+
+% pEstNumber=30865220; % epsilon=1e-2; period0=5.0
+% pEstNumber=86618664; % epsilon=1e-2; period0=7.0
+% pEstNumber=22486433; % epsilon 1e-2, period0=3.0
+
+% pEstNumber=07220360; % epsilon=1e-2; period0=5.0
+% pEstNumber=84538764; % epsilon=1e-2; period0=7.0
+% pEstNumber=58696800; % epsilon 1e-2, period0=3.0
+
 % pEstNumber=41576915; % 3 latents, 5 trials, 100 neurons, 20 EM iterations
 % pEstNumber=21161869; % 3 latents, 5 trials, 100 neurons, 50 EM iterations
 % pEstNumber=49508230; % 3 latents, 5 trials, 100 neurons, 50 EM iterations
@@ -13,6 +29,10 @@ pythonDataFilenamePattern = '../../pythonCode/scripts/results/%08d_estimationDat
 
 pythonDataFilename = sprintf(pythonDataFilenamePattern, pEstNumber);
 pythonData = load(pythonDataFilename);
+
+if(emMaxIter>0)
+    pythonData.emMaxIter = emMaxIter;
+end
 
 % control variables
 dx = pythonData.nLatents;
@@ -149,6 +169,25 @@ m.opts.fixed.Z = 0; % set to 1 to hold certain parameters values fixed
 m.opts.fixed.hprs = 0;
 m.opts.nbatch = ntr; % number of trials to use for hyperparameter update
 
+estimationParamsINI = IniConfig();
+estimationParamsINI.AddSections({'data'});
+estimationParamsINI.AddKeys('data', 'pEstNumber', pEstNumber);
+
+exit = false;
+while ~exit
+    estResNumber = randi([0, 10^8-1], 1);
+    estimationParamsFilename = sprintf('results/%08d-pointProcessEstimationParams.ini', estResNumber);
+    if exist(estimationParamsFilename, "file")~=2
+        estimationParamsINI.WriteFile(estimationParamsFilename);
+        exit = true;
+    end
+end
+
+m.savePartial = true;
+m.savePartialFilenamePattern = sprintf('results/%08d-%%s-pointProcessEstimationRes.mat', estResNumber);
+
+keyboard
+
 m = variationalEM(m);
 
 %% predict latents and MultiOutput GP
@@ -168,21 +207,8 @@ elapsedTime = m.elapsedTime;
 meanEstimatedLatents = pred.latents.mean;
 varEstimatedLatents = pred.latents.variance;
 
-estimationParamsINI = IniConfig();
-estimationParamsINI.AddSections({'data'});
-estimationParamsINI.AddKeys('data', 'pEstNumber', pEstNumber);
-
-exit = false;
-while ~exit
-    rNum = randi([0, 10^8-1], 1);
-    estimationResFilename = sprintf('results/%08d-pointProcessEstimationRes.mat', rNum);
-    estimationParamsFilename = sprintf('results/%08d-pointProcessEstimationParams.ini', rNum);
-    if ~isfile(estimationResFilename) & ~isfile(estimationParamsFilename) 
-        save(estimationResFilename, 'lowerBound', 'elapsedTime', 'testTimes', 'meanEstimatedLatents', 'varEstimatedLatents', 'm');
-        estimationParamsINI.WriteFile(estimationParamsFilename);
-        exit = true;
-    end
-end
+estimationResFilename = sprintf('results/%08d-pointProcessEstimationRes.mat', estResNumber);
+save(estimationResFilename, 'lowerBound', 'elapsedTime', 'testTimes', 'meanEstimatedLatents', 'varEstimatedLatents', 'm');
 
 %% plot latents for a given trial
 % nn = 2;
