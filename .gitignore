@@ -1,5 +1,14 @@
 syncData
 
+# exclude scripts/figures/
+scripts/figures/
+
+# exclude original/
+original/
+
+# exclude scripts/old
+scripts/old/
+
 # exclude results
 results/
 
