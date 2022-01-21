@@ -14,8 +14,13 @@ addpath(genpath('../src'))
 % mEstNumber=70338114; % epsilon 1e-5, period0=7.0
 % mEstNumber=37865224; % epsilon 1e-5, period0=3.0
 
-mEstNumber=79220732; % epsilon 1e-5, period0=3.0
-partialDesc = 'initial';
+% mEstNumber=80028046; partialDesc = 'initial';
+% mEstNumber=03571167; partialDesc = '';
+% mEstNumber=84912930; partialDesc = '';
+% mEstNumber=93399324; partialDesc = '';
+% mEstNumber=67873515; partialDesc = '';
+% mEstNumber=39222701; partialDesc = '';
+mEstNumber=65547789; partialDesc = '';
 
 % periodValueStart = 0.01;
 periodValueStart = 0.84;
