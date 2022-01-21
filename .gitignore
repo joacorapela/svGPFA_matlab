@@ -55,3 +55,13 @@ codegen/
 
 # Octave session info
 octave-workspace
+
+# nfs temporary files
+.nfs*
+
+# figures
+working/scripts/figures/*
+
+# old
+working/scripts/old/*
+
