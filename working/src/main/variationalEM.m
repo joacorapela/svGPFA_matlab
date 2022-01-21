@@ -1,4 +1,4 @@
-function m = variationalEM(m);
+function m = variationalEM(m, getIterationModelParamsFn);
 % m = variationalEM(m);
 %
 % this function fits a sparse variational GPFA model to multivariate
@@ -20,6 +20,10 @@ function m = variationalEM(m);
 % Duncker, 2018
 %
 %
+
+if nargin<2
+    getIterationModelParamsFn = 0;
+end
 
 saveCItestData = getGlobal_saveCItestData();
 if saveCItestData
@@ -57,6 +61,15 @@ if m.opts.verbose
     fprintf('%3s\t%10s\t%10s\t%10s\n','iter','objective','increase','iterTime')
 end
 
+if isa(getIterationModelParamsFn, 'function_handle')
+
+    initialModelsParams = getIterationModelParamsFn(m);
+    m.iterationsModelParams = zeros(m.opts.maxiter.EM+1, length(initialModelsParams));
+    m.iterationsModelParams(1,:) = initialModelsParams;
+else
+    m.iterationsModelParams = NaN;
+end
+
 % ========= run variational inference =========
 t_start_iter = tic;
 for i = 1:m.opts.maxiter.EM
@@ -67,7 +80,11 @@ for i = 1:m.opts.maxiter.EM
 
     % ========= E-step: update variational parameters =========
 
+    fprintf('Iteration %d, estep start %f\n', i, m.EMfunctions.VariationalFreeEnergy(m));
     m = Estep(m);
+    fprintf('Iteration %d, estep end %f\n', i, m.EMfunctions.VariationalFreeEnergy(m));
+    freeEnergyAfter = m.EMfunctions.VariationalFreeEnergy(m);
+
 
     if m.savePartial
         savePartialFilename = sprintf(m.savePartialFilenamePattern, sprintf('eStep%03d', i));
@@ -98,7 +115,9 @@ for i = 1:m.opts.maxiter.EM
     % ========= M-step: optimise wrt model parameters =========
 
     if i > 1 % skip first M-step to avoid early convergence to bad optima
+        fprintf('Iteration %d, mstep_embedding start %f\n', i, m.EMfunctions.VariationalFreeEnergy(m));
         m = Mstep(m);
+        fprintf('Iteration %d, mstep_embedding end %f\n', i, m.EMfunctions.VariationalFreeEnergy(m));
         if m.savePartial
             savePartialFilename = sprintf(m.savePartialFilenamePattern, sprintf('mStepEmbedding%03d', i));
             save(savePartialFilename, 'm');
@@ -107,7 +126,10 @@ for i = 1:m.opts.maxiter.EM
 
     % ========= hyper-M step: optimise wrt hyperparameters =========
 
+    fprintf('Iteration %d, mstep_kernels start %f\n', i, m.EMfunctions.VariationalFreeEnergy(m));
     m = hyperMstep(m);
+    fprintf('Iteration %d, mstep_kernels end %f\n', i, m.EMfunctions.VariationalFreeEnergy(m));
+    disp(m.kerns{1}.hprs)
     if m.savePartial
         savePartialFilename = sprintf(m.savePartialFilenamePattern, sprintf('mStepKernels%03d', i));
         save(savePartialFilename, 'm');
@@ -115,13 +137,21 @@ for i = 1:m.opts.maxiter.EM
 
     % ========= inducing point hyper-M step: optimise wrt inducing point locations =========
 
+    fprintf('Iteration %d, mstep_indpointslocs start %f\n', i, m.EMfunctions.VariationalFreeEnergy(m));
     m = inducingPointMstep(m);
+    fprintf('Iteration %d, mstep_indpointslocs end %f\n', i, m.EMfunctions.VariationalFreeEnergy(m));
     if m.savePartial
         savePartialFilename = sprintf(m.savePartialFilenamePattern, sprintf('mStepIndPoints%03d', i));
         save(savePartialFilename, 'm');
     end
 
     m.elapsedTime(i,1) = toc(t_start);
+
+    if isa(getIterationModelParamsFn, 'function_handle')
+        initialModelsParams = getIterationModelParamsFn(m);
+        m.iterationsModelParams(i+1,:) = initialModelsParams;
+    end
+
 end
 
 % save and report elapsed time
