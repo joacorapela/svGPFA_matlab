@@ -1,10 +1,41 @@
 
 %% script to simulate Poisson Process data and run sv-ppGPFA 
-clear all; close all;
+% clear all; close all;
 addpath(genpath('../src'))
 addpath(genpath('~/dev/research/programs/src/matlab/iniconfig'))
 
-emMaxIter=0; pEstNumber=59541179; % epsilon=1e-3; period0=5.0
+emMaxIter=-1; pEstNumber=86915600;
+% emMaxIter=-1; pEstNumber=10713628;
+% emMaxIter=-1; pEstNumber=80963115;
+% emMaxIter=-1; pEstNumber=91304317;
+% emMaxIter=-1; pEstNumber=47672709;
+% emMaxIter=-1; pEstNumber=95477178;
+% emMaxIter=-1; pEstNumber=27589378;
+% emMaxIter=-1; pEstNumber=25561071;
+% emMaxIter=-1; pEstNumber=78507976;
+% emMaxIter=-1; pEstNumber=10963658;
+% emMaxIter=-1; pEstNumber=19940935;
+% emMaxIter=0; pEstNumber=00000000;
+% emMaxIter=0; pEstNumber=19714359;
+% emMaxIter=0; pEstNumber=79452033;
+% emMaxIter=0; pEstNumber=05936402;
+% emMaxIter=0; pEstNumber=13540551;
+% emMaxIter=0; pEstNumber=34441072; % 50 ind points; random embedding params
+% emMaxIter=0; pEstNumber=00060009; % 9 ind points; random embedding params
+% emMaxIter=0; pEstNumber=98398892; % epsilon=1e-3; period0=5.0
+% emMaxIter=0; pEstNumber=66957442; % epsilon=1e-3; period0=5.0
+% emMaxIter=0; pEstNumber=66957442; % epsilon=1e-3; period0=5.0
+% emMaxIter=0; pEstNumber=25433695; % epsilon=1e-3; period0=5.0
+% emMaxIter=0; pEstNumber=50798448; % epsilon=1e-3; period0=5.0
+% emMaxIter=0; pEstNumber=79943216; % epsilon=1e-3; period0=5.0
+% emMaxIter=0; pEstNumber=82586884; % epsilon=1e-3; period0=5.0
+% emMaxIter=0; pEstNumber=53926680; % epsilon=1e-3; period0=5.0
+% emMaxIter=0; pEstNumber=00038683; % epsilon=1e-3; period0=5.0
+% emMaxIter=0; pEstNumber=41069442; % epsilon=1e-3; period0=5.0
+% emMaxIter=0; pEstNumber=68824168; % epsilon=1e-3; period0=5.0
+% emMaxIter=0; pEstNumber=95949242; % epsilon=1e-3; period0=5.0
+% emMaxIter=0; pEstNumber=04544033; % epsilon=1e-3; period0=5.0
+% emMaxIter=0; pEstNumber=59541179; % epsilon=1e-3; period0=5.0
 % emMaxIter=0; pEstNumber=88504903; % epsilon=1e-3; period0=5.0
 % emMaxIter=0; pEstNumber=01773732; % epsilon=1e-3; period0=5.0
 % pEstNumber=91876278; % epsilon=1e-3; period0=5.0
@@ -25,12 +56,17 @@ emMaxIter=0; pEstNumber=59541179; % epsilon=1e-3; period0=5.0
 % pEstNumber=21161869; % 3 latents, 5 trials, 100 neurons, 50 EM iterations
 % pEstNumber=49508230; % 3 latents, 5 trials, 100 neurons, 50 EM iterations
 % pEstNumber=89669968; % 2 latents, 1 trial, 1 neuron , 50 EM iterations
-pythonDataFilenamePattern = '../../pythonCode/scripts/results/%08d_estimationDataForMatlab.mat';
+% pythonDataFilenamePattern = '../../pythonCode/scripts/results/%08d_estimationDataForMatlab.mat';
+pythonDataFilenamePattern = '../../../pythonCode/scripts/shenoy/results/%08d_estimationDataForMatlab.mat';
 
 pythonDataFilename = sprintf(pythonDataFilenamePattern, pEstNumber);
 pythonData = load(pythonDataFilename);
 
-if(emMaxIter>0)
+% begin repeated -- to delete
+latentsTimes = pythonData.(sprintf("latentsTrialsTimes_0"));
+% end repeated -- to delete
+
+if(emMaxIter>=0)
     pythonData.emMaxIter = emMaxIter;
 end
 
@@ -55,13 +91,13 @@ end
 indPointsLocsGramMatrixEpsilon=pythonData.indPointsLocsKMSRegEpsilon;
 
 % embedding params
-noisyPRS.C = pythonData.C0;
-noisyPRS.b = pythonData.d0;
+noisyPRS.C = pythonData.C;
+noisyPRS.b = pythonData.d;
 
 % inducing points
 Z = cell(dx,1);
 for ii = 0:dx-1
-    Zii = pythonData.(sprintf('indPointsLocs0_%d', ii));
+    Zii = pythonData.(sprintf('indPointsLocs_%d', ii));
     Z{ii+1} = zeros(size(Zii,2),1,ntr);
     for jj = 0:ntr-1
         Z{ii+1}(:,1,jj+1) = Zii(jj+1,:);
@@ -72,7 +108,7 @@ end
 kerns = {};
 for ii = 0:dx-1
     kernelType = pythonData.(sprintf('kernelType_%d', ii));
-    kernelsParams0 = pythonData.(sprintf('kernelsParams0_%d', ii))';
+    kernelsParams0 = pythonData.(sprintf('kernelsParams_%d', ii))';
     switch kernelType
         case 'PeriodicKernel'
             kerns{ii+1} = buildKernel('Periodic', kernelsParams0);
@@ -101,8 +137,8 @@ end
 % nZ(1) = 5; % number of inducing points for each latent
 % nZ(2) = 5;
 % nZ(3) = 6;
-Nmax = 500;
-dt = max(trLen)/Nmax;
+% Nmax = 500;
+% dt = max(trLen)/Nmax;
 
 % set up kernels
 % kern1 = buildKernel('Periodic',[1.5;1/2.5]);
@@ -144,11 +180,11 @@ q_diag = cell(1,dx);
 for ii=0:dx-1
     nIndPointsk = size(Z{ii+1}, 1);
     q_mu{ii+1} = zeros(nIndPointsk, 1, ntr);
-    q_mu{ii+1}(:,1,:) = pythonData.(sprintf('qMu0_%d', ii))';
+    q_mu{ii+1}(:,1,:) = pythonData.(sprintf('qMu_%d', ii))';
     q_sqrt{ii+1} = zeros(nIndPointsk, 1, ntr);
-    q_sqrt{ii+1}(:,1,:) = pythonData.(sprintf('qSVec0_%d', ii))';
+    q_sqrt{ii+1}(:,1,:) = pythonData.(sprintf('qSVec_%d', ii))';
     q_diag{ii+1} = zeros(nIndPointsk, 1, ntr);
-    q_diag{ii+1}(:,1,:) = pythonData.(sprintf('qSDiag0_%d', ii))';
+    q_diag{ii+1}(:,1,:) = pythonData.(sprintf('qSDiag_%d', ii))';
 end
 q_sigma = get_full_from_lowplusdiag(m,q_sqrt,q_diag);
 m.q_mu = q_mu;
@@ -183,17 +219,21 @@ while ~exit
     end
 end
 
-m.savePartial = true;
-m.savePartialFilenamePattern = sprintf('results/%08d-%%s-pointProcessEstimationRes.mat', estResNumber);
+m.savePartial = false;
+% m.savePartialFilenamePattern = sprintf('results/%08d-%%s-pointProcessEstimationRes.mat', estResNumber);
 
-keyboard
+% keyboard
 
-m = variationalEM(m);
+m = variationalEM(m, @getKernelsParams);
 
 %% predict latents and MultiOutput GP
-ngtest = 2000;
-testTimes = linspace(0,max(trLen),ngtest)';
-pred = predictNew_svGPFA(m,testTimes);
+% ngtest = 2000;
+% testTimes = linspace(0,max(trLen),ngtest)';
+% latentsTimes = pythonData.(sprintf('latentsTrialsTrimes_0'));
+latentsTimes = 750:2250;
+latentsTimes = pythonData.(sprintf('latentsTrialsTimes_0'));
+latentsTimes = reshape(latentsTimes, length(latentsTimes), 1);
+pred = predictNew_svGPFA(m, latentsTimes);
 
 % trueLatents = {};
 % for nn = 1:ntr
@@ -203,13 +243,13 @@ pred = predictNew_svGPFA(m,testTimes);
 % end
 
 lowerBound = m.FreeEnergy;
-elapsedTime = m.elapsedTime;
+% elapsedTime = m.elapsedTime;
 meanEstimatedLatents = pred.latents.mean;
 varEstimatedLatents = pred.latents.variance;
 
 estimationResFilename = sprintf('results/%08d-pointProcessEstimationRes.mat', estResNumber);
-save(estimationResFilename, 'lowerBound', 'elapsedTime', 'testTimes', 'meanEstimatedLatents', 'varEstimatedLatents', 'm');
-
+% save(estimationResFilename, 'lowerBound', 'elapsedTime', 'latentsTimes', 'meanEstimatedLatents', 'varEstimatedLatents', 'm');
+save(estimationResFilename, 'lowerBound', 'latentsTimes', 'meanEstimatedLatents', 'varEstimatedLatents', 'm');
 %% plot latents for a given trial
 % nn = 2;
 % figure;
@@ -248,3 +288,8 @@ save(estimationResFilename, 'lowerBound', 'elapsedTime', 'testTimes', 'meanEstim
 % plot(m.elapsedTime(:,1), m.FreeEnergy(:,1))
 % xlabel('Elapsed Time (sec)');
 % ylabel('Free Energy');
+
+function params = getKernelsParams(m)
+    params = [m.kerns{1}.hprs, m.kerns{2}.hprs]
+end
+
